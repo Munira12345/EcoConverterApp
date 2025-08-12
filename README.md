@@ -14,6 +14,11 @@ It's currently in development and focuses on building a smooth, modern UI using 
 
 ---
 
+## Wireframe 
+
+![ecoconverterwireframe](https://github.com/user-attachments/assets/022a5153-a16a-4d30-9fc7-5e9257b150f5)
+
+
 ## Tech Stack
 
 - **Language:** Kotlin
