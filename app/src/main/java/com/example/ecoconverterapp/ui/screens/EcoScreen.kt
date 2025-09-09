@@ -35,11 +35,11 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.*
 
 
-//background can be very light green , might change once i fix the UI
+// background can be very light green
 val LightGreen = Color(0xFFE8F5E9)
-@Composable
-fun EcoScreen(){
 
+@Composable
+fun EcoScreen() {
     Scaffold(
         topBar = {
             EcoTopAppBar()
@@ -47,82 +47,84 @@ fun EcoScreen(){
         containerColor = LightGreen
     ) { innerPadding ->
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding)
-
-    )
-    {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(16.dp)
-        ){
-            Text(
-                text = "choose your file",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
-            )
-
-            Spacer(modifier = Modifier.height(32.dp))
-        Row(
-            modifier =Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ){
-            IconWithText(
-                icon = Icons.Filled.Image,
-                text = "image(jpg)"
-            )
-            IconWithText(
-                icon = Icons.Filled.TextSnippet,
-                text = "word"
-            )
-            IconWithText(
-                icon = Icons.Filled.PictureAsPdf,
-                text = "pdf"
-            )
-            IconWithText(
-                icon = Icons.Filled.Image,
-                text = "image(png)"
-            )
-
-        }
-        }
-    }
-}}
-
-    @Composable
-    fun EcoTopAppBar() {
-        SmallTopAppBar(
-            title = {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
                 Text(
-                    text = "Eco Converter",
+                    text = "Choose your file",
+                    fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
                     color = Color.Black
                 )
-            },
-            navigationIcon = {
-                IconButton(onClick = { /* TODO: Add drawer or menu logic */ }) {
-                    Icon(
-                        imageVector = Icons.Filled.Menu,
-                        contentDescription = "Menu"
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconWithText(
+                        icon = Icons.Filled.Image,
+                        text = "image(jpg)"
+                    )
+                    IconWithText(
+                        icon = Icons.Filled.TextSnippet,
+                        text = "word"
+                    )
+                    IconWithText(
+                        icon = Icons.Filled.PictureAsPdf,
+                        text = "pdf"
+                    )
+                    IconWithText(
+                        icon = Icons.Filled.Image,
+                        text = "image(png)"
                     )
                 }
-            },
-            colors = TopAppBarDefaults.smallTopAppBarColors(
-                containerColor = Color.White
-            )
-        )
+            }
+        }
     }
+}
 
 
-    @Composable
-fun IconWithText(icon:androidx.compose.ui.graphics.vector.ImageVector, text: String) {
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EcoTopAppBar() {
+    TopAppBar(
+        title = {
+            Text(
+                text = "Eco Converter",
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color.Black
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = { /* TODO */ }) {
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = "Menu"
+                )
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color.White
+        )
+    )
+}
 
+
+@Composable
+fun IconWithText(icon: androidx.compose.ui.graphics.vector.ImageVector, text: String) {
     Surface(
         shape = RoundedCornerShape(12.dp),
         color = Color.White,
@@ -132,7 +134,8 @@ fun IconWithText(icon:androidx.compose.ui.graphics.vector.ImageVector, text: Str
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(8.dp)
         ) {
             Icon(
                 imageVector = icon,
@@ -149,14 +152,11 @@ fun IconWithText(icon:androidx.compose.ui.graphics.vector.ImageVector, text: Str
             )
         }
     }
-
-
-
-@Preview(showBackground = true)
-    @Composable
-fun EcoScreenPreview(){
-    EcoScreen()
 }
 
-
+@Preview(showBackground = true)
+@Composable
+fun EcoScreenPreview() {
+    EcoScreen()
+}
 
