@@ -33,10 +33,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.*
+import com.example.ecoconverterapp.ui.theme.LightGreen
 
 
-// background can be very light green
-val LightGreen = Color(0xFFE8F5E9)
 
 @Composable
 fun EcoScreen() {
