@@ -101,7 +101,7 @@ fun EcoTopAppBar() {
     TopAppBar(
         title = {
             Text(
-                text = "Eco Converter",
+                text = "Eco Converter by Muni",
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp,
                 color = Color.Black
