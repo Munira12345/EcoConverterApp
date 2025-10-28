@@ -32,7 +32,7 @@ data class FileHistoryItem(
     val icon: ImageVector
 )
 
-// A dummy list of different files to appear
+// A dummy list of different files to appear here
 val dummyHistory = listOf(
     FileHistoryItem("Project_Report.pdf", "Dec 1, 2024", Icons.Default.PictureAsPdf),
     FileHistoryItem("Vacation_Photo.jpg", "Nov 28, 2024", Icons.Default.Image),
