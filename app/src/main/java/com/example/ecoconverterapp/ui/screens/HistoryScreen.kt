@@ -49,6 +49,7 @@ val dummyHistory = listOf(
     FileHistoryItem("Travel_Itinerary.docx", "Oct 15, 2024", Icons.Default.Description),
 )
 
+
 @Composable
 fun HistoryScreen() {
 
