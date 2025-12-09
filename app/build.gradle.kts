@@ -50,6 +50,11 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    //nav setup
+    implementation("androidx.navigation:navigation-compose:2.9.6")
+
+
+
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0") // Core Retrofit
     implementation("com.squareup.retrofit2:converter-gson:2.11.0") // For JSON parsing with Gson
