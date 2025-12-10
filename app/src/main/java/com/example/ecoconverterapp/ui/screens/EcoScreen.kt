@@ -34,15 +34,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import com.example.ecoconverterapp.ui.theme.LightGreen
+import com.example.ecoconverterapp.ui.theme.Pink40
+import com.example.ecoconverterapp.ui.theme.PurpleGrey40
 import kotlinx.coroutines.launch
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EcoScreen(navController: NavHostController) {
+fun EcoScreen(navController: NavHostController, userName: String = "User") {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -62,54 +65,162 @@ fun EcoScreen(navController: NavHostController) {
             )
         }
     ) {
+
         Scaffold(
             topBar = {
                 EcoTopAppBar(
-                    onMenuClick = {
-                        scope.launch { drawerState.open() }
-                    }
+                    onMenuClick = { scope.launch { drawerState.open() } }
                 )
             },
             containerColor = LightGreen
         ) { innerPadding ->
 
-            // --- Your Existing UI ---
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
+                    .padding(16.dp)
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp)
+
+                // 👋 Greeting
+                Text(
+                    text = "Hi, $userName 👋",
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // ✨ Glowing Section
+                GlowingCard()
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // QUICK ACCESS title
+                Text(
+                    text = "Quick Access",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
-                        text = "Choose your file",
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
-
-                    Spacer(modifier = Modifier.height(32.dp))
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceAround,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IconWithText(icon = Icons.Filled.Image, text = "image(jpg)")
-                        IconWithText(icon = Icons.Filled.TextSnippet, text = "word")
-                        IconWithText(icon = Icons.Filled.PictureAsPdf, text = "pdf")
-                        IconWithText(icon = Icons.Filled.Image, text = "image(png)")
-                    }
+                    QuickAccessLabel("Recent")
+                    QuickAccessLabel("PDFs")
+                    QuickAccessLabel("Word")
                 }
+
+                Spacer(modifier = Modifier.height(28.dp))
+
+                // Upload box
+                UploadBox()
             }
         }
     }
 }
+
+@Composable
+fun GlowingCard() {
+    Surface(
+        shape = RoundedCornerShape(24.dp),
+        color = PurpleGrey40.copy(alpha = 0.4f),
+        tonalElevation = 6.dp,
+        shadowElevation = 12.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 4.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(20.dp)
+        ) {
+
+            // Search bar
+            TextField(
+                value = "",
+                onValueChange = {},
+                placeholder = { Text("Search your files...") },
+                singleLine = true,
+                leadingIcon = {
+                    Icon(
+                        Icons.Default.Search,
+                        contentDescription = null
+                    )
+                },
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White
+                ),
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Text(
+                text = "Create an account to access unlimited file conversions.",
+                fontSize = 14.sp,
+                color = Color.Black.copy(alpha = 0.7f),
+                modifier = Modifier.padding(start = 4.dp)
+            )
+        }
+    }
+}
+@Composable
+fun QuickAccessLabel(text: String) {
+    Text(
+        text = text,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Medium,
+        color = Color.Black
+    )
+}
+@Composable
+fun UploadBox() {
+    Surface(
+        shape = RoundedCornerShape(18.dp),
+        color = Color.White,
+        tonalElevation = 3.dp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(180.dp)
+            .clickable { /* later: open file picker */ }
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Icon(
+                imageVector = Icons.Default.ArrowUpward,
+                contentDescription = "Upload",
+                tint = LightGreen,
+                modifier = Modifier.size(40.dp)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Click to upload",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = "or drag & drop files",
+                fontSize = 14.sp,
+                color = Color.Gray
+            )
+        }
+    }
+}
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -118,7 +229,7 @@ fun EcoTopAppBar(onMenuClick: () -> Unit) {
     TopAppBar(
         title = {
             Text(
-                text = "Eco Converter by Muni",
+                text = "Eco Converter App",
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp,
                 color = Color.Black
