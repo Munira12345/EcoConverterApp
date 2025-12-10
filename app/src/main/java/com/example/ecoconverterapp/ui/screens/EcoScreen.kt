@@ -1,6 +1,7 @@
 package com.example.ecoconverterapp.ui.screens
 
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,61 +34,77 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.NavHostController
 import com.example.ecoconverterapp.ui.theme.LightGreen
+import kotlinx.coroutines.launch
 
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EcoScreen() {
-    Scaffold(
-        topBar = {
-            EcoTopAppBar()
-        },
-        containerColor = LightGreen
-    ) { innerPadding ->
+fun EcoScreen(navController: NavHostController) {
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            DrawerMenu(
+                onHistoryClick = {
+                    scope.launch { drawerState.close() }
+                    navController.navigate("history")
+                },
+                onResultsClick = {
+                    scope.launch { drawerState.close() }
+                    navController.navigate("results")
+                }
+            )
+        }
+    ) {
+        Scaffold(
+            topBar = {
+                EcoTopAppBar(
+                    onMenuClick = {
+                        scope.launch { drawerState.open() }
+                    }
+                )
+            },
+            containerColor = LightGreen
+        ) { innerPadding ->
+
+            // --- Your Existing UI ---
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp)
+                    .padding(innerPadding)
             ) {
-                Text(
-                    text = "Choose your file",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
-                )
-
-                Spacer(modifier = Modifier.height(32.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround,
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
                 ) {
-                    IconWithText(
-                        icon = Icons.Filled.Image,
-                        text = "image(jpg)"
+                    Text(
+                        text = "Choose your file",
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
                     )
-                    IconWithText(
-                        icon = Icons.Filled.TextSnippet,
-                        text = "word"
-                    )
-                    IconWithText(
-                        icon = Icons.Filled.PictureAsPdf,
-                        text = "pdf"
-                    )
-                    IconWithText(
-                        icon = Icons.Filled.Image,
-                        text = "image(png)"
-                    )
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceAround,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconWithText(icon = Icons.Filled.Image, text = "image(jpg)")
+                        IconWithText(icon = Icons.Filled.TextSnippet, text = "word")
+                        IconWithText(icon = Icons.Filled.PictureAsPdf, text = "pdf")
+                        IconWithText(icon = Icons.Filled.Image, text = "image(png)")
+                    }
                 }
             }
         }
@@ -97,7 +114,7 @@ fun EcoScreen() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EcoTopAppBar() {
+fun EcoTopAppBar(onMenuClick: () -> Unit) {
     TopAppBar(
         title = {
             Text(
@@ -108,7 +125,7 @@ fun EcoTopAppBar() {
             )
         },
         navigationIcon = {
-            IconButton(onClick = { /* TODO */ }) {
+            IconButton(onClick = onMenuClick) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = "Menu"
@@ -121,6 +138,37 @@ fun EcoTopAppBar() {
     )
 }
 
+@Composable
+fun DrawerMenu(
+    onHistoryClick: () -> Unit,
+    onResultsClick: () -> Unit
+) {
+    Column(modifier = Modifier.padding(16.dp)) {
+
+        Text(
+            "Menu",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 24.dp)
+        )
+
+        Text(
+            text = "History",
+            fontSize = 16.sp,
+            modifier = Modifier
+                .padding(vertical = 12.dp)
+                .clickable { onHistoryClick() }
+        )
+
+        Text(
+            text = "Results",
+            fontSize = 16.sp,
+            modifier = Modifier
+                .padding(vertical = 12.dp)
+                .clickable { onResultsClick() }
+        )
+    }
+}
 
 @Composable
 fun IconWithText(icon: androidx.compose.ui.graphics.vector.ImageVector, text: String) {
@@ -156,6 +204,7 @@ fun IconWithText(icon: androidx.compose.ui.graphics.vector.ImageVector, text: St
 @Preview(showBackground = true)
 @Composable
 fun EcoScreenPreview() {
-    EcoScreen()
+    EcoScreen(navController = androidx.navigation.compose.rememberNavController())
 }
+
 
