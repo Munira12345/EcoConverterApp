@@ -50,6 +50,8 @@ fun EcoScreen(navController: NavHostController, userName: String = "User") {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+
+    // to improve the side menu next
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
