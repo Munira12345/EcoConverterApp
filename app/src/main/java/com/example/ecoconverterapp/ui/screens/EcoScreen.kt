@@ -85,6 +85,8 @@ fun EcoScreen(navController: NavHostController, userName: String = "User") {
                     .padding(16.dp)
             ) {
 
+
+
                 // 👋 Greeting
                 Text(
                     text = "Hi, $userName 👋",
