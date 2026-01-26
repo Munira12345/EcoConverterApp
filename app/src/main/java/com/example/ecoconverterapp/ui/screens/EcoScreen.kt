@@ -87,6 +87,7 @@ fun EcoScreen(navController: NavHostController, userName: String = "User") {
 
 
 
+
                 // 👋 Greeting
                 Text(
                     text = "Hi, $userName 👋",
