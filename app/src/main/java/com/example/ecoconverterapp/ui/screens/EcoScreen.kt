@@ -89,7 +89,7 @@ fun EcoScreen(navController: NavHostController, userName: String = "User") {
 
 
 
-                //  Greeting
+                //  pending implementation
                 Text(
                     text = "Hi, $userName 👋",
                     fontSize = 26.sp,
