@@ -42,6 +42,11 @@ import com.example.ecoconverterapp.ui.theme.LightGreen
 import com.example.ecoconverterapp.ui.theme.Pink40
 import com.example.ecoconverterapp.ui.theme.PurpleGrey40
 import kotlinx.coroutines.launch
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,8 +89,6 @@ fun EcoScreen(navController: NavHostController, userName: String = "User") {
                     .padding(innerPadding)
                     .padding(16.dp)
             ) {
-
-
 
 
 
@@ -172,11 +175,26 @@ fun GlowingCard() {
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = "Create an account to access unlimited file conversions.",
+                text = buildAnnotatedString {
+                    pushStyle(
+                        SpanStyle(
+                            textDecoration = TextDecoration.Underline,
+                            fontWeight = FontWeight.Medium
+                        )
+                    )
+                    append("Create an account")
+                    pop()
+                    append(" to access unlimited file conversions.")
+                },
                 fontSize = 14.sp,
                 color = Color.Black.copy(alpha = 0.7f),
-                modifier = Modifier.padding(start = 4.dp)
+                modifier = Modifier
+                    .padding(start = 4.dp)
+                    .clickable {
+                        // later: navigate to signup screen
+                    }
             )
+
         }
     }
 }
