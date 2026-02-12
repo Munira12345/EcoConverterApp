@@ -27,6 +27,10 @@ It's currently in development and focuses on building a smooth, modern UI using 
 - **Build Script:** Kotlin DSL
 - **Local Storage:** Room
 
+
+*** UI 
+<img width="272" height="563" alt="image" src="https://github.com/user-attachments/assets/ed93cdec-80ff-4850-8c03-3e077622bc01" />
+
 ---
 
 ## Getting Started
