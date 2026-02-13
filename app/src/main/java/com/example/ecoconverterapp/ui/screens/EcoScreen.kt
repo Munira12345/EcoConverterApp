@@ -223,6 +223,7 @@ fun UploadBox() {
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize()
         ) {
+            //pending functionality
             Icon(
                 imageVector = Icons.Default.ArrowUpward,
                 contentDescription = "Upload",
