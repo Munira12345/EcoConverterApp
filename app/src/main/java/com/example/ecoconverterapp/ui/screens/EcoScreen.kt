@@ -292,6 +292,7 @@ fun DrawerMenu(
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
+
         Text(
             text = "History",
             fontSize = 16.sp,
