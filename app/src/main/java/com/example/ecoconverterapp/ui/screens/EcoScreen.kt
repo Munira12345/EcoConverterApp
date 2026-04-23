@@ -275,8 +275,6 @@ fun EcoTopAppBar(onMenuClick: () -> Unit) {
     )
 }
 
-
-
 @Composable
 fun DrawerMenu(
     onHistoryClick: () -> Unit,
